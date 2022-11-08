@@ -1,3 +1,3 @@
-module github.com/guptarohit/asciigraph
+module github.com/perbu/asciigraph
 
 go 1.11

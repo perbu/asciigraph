@@ -19,6 +19,11 @@ type config struct {
 	AxisColor     AnsiColor
 	LabelColor    AnsiColor
 	SeriesColors  []AnsiColor
+
+	ColorAbove      AnsiColor
+	ColorAboveValue float64
+	ColorBelow      AnsiColor
+	ColorBelowValue float64
 }
 
 // An optionFunc applies an option.
@@ -101,5 +106,20 @@ func LabelColor(ac AnsiColor) Option {
 func SeriesColors(ac ...AnsiColor) Option {
 	return optionFunc(func(c *config) {
 		c.SeriesColors = ac
+	})
+}
+
+// Color points above this value with the supplied colo
+func ColorAbove(color AnsiColor, value float64) Option {
+	return optionFunc(func(c *config) {
+		c.ColorAbove = color
+		c.ColorAboveValue = value
+	})
+}
+
+func ColorBelow(color AnsiColor, value float64) Option {
+	return optionFunc(func(c *config) {
+		c.ColorBelow = color
+		c.ColorBelowValue = value
 	})
 }

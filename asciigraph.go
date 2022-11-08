@@ -151,6 +151,9 @@ func PlotMany(data [][]float64, options ...Option) string {
 		}
 
 		for x := 0; x < len(series)-1; x++ { // plot the line
+			// check if the value is above the value of config.ColorAbove
+			// if so, change the color to config.ColorAbove
+
 			d0 := series[x]
 			d1 := series[x+1]
 
@@ -196,7 +199,18 @@ func PlotMany(data [][]float64, options ...Option) string {
 			start := int(math.Min(float64(y0), float64(y1)))
 			end := int(math.Max(float64(y0), float64(y1)))
 			for y := start; y <= end; y++ {
+
+				if d0 > config.ColorAboveValue || d1 > config.ColorAboveValue {
+					plot[rows-y][x+config.Offset].Color = config.ColorAbove
+					continue
+				}
+				// color below:
+				if d0 < config.ColorBelowValue || d1 < config.ColorBelowValue {
+					plot[rows-y][x+config.Offset].Color = config.ColorBelow
+					continue
+				}
 				plot[rows-y][x+config.Offset].Color = color
+
 			}
 		}
 	}
